@@ -4,39 +4,49 @@ using System.Collections.Generic;
 public class HoopPool : MonoBehaviour
 {
     [SerializeField] private GameObject hoopPrefab;
-    [SerializeField] private int poolSize = 10;
+    [SerializeField] private int initialSize = 4;
 
     private readonly List<GameObject> _pool = new();
 
     void Awake()
     {
-        for (int i = 0; i < poolSize; i++)
+        for (int i = 0; i < initialSize; i++)
         {
             CreateHoop();
         }
     }
 
-    private GameObject CreateHoop()
-    {
-        GameObject hoop = Instantiate(hoopPrefab, transform);
-
-        hoop.SetActive(false);
-
-        _pool.Add(hoop);
-
-        return hoop;
-    }
-
     public GameObject GetHoop()
     {
-        for (int i = 0; i < _pool.Count; i++)
+        foreach (var obj in _pool)
         {
-            if (!_pool[i].activeInHierarchy)
-            {
-                return _pool[i];
-            }
+            if (!obj.activeInHierarchy) return obj;
         }
 
         return CreateHoop();
+    }
+
+    // public void Return(GameObject hoop)
+    // {
+    //     hoop.SetActive(false);
+    // }
+
+    // public void ReturnAll()
+    // {
+    //     foreach (var obj in _pool)
+    //     {
+    //         obj.SetActive(false);
+    //     }
+    // }
+
+    private GameObject CreateHoop()
+    {
+        GameObject obj = Instantiate(hoopPrefab, transform);
+
+        obj.SetActive(false);
+
+        _pool.Add(obj);
+
+        return obj;
     }
 }

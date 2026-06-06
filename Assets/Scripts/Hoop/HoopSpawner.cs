@@ -2,41 +2,69 @@ using UnityEngine;
 
 public class HoopSpawner : MonoBehaviour
 {
-    [Header("References")]
+
     [SerializeField] private HoopPool hoopPool;
 
-    [Header("Spawner setting")]
-    [SerializeField] private float spawnRate = 2f;
-
-    [SerializeField] private float spawnX = 10f;
-
-    [Header("Height Range")]
-    [SerializeField] private float minY = -2f;
+    [Header("Spawn")]
+    [SerializeField] private float spawnX = 7f;
 
     [SerializeField] private float maxY = 3f;
+    [SerializeField] private float minY = -2f;
 
-    private float _timer;
+    [SerializeField] private float spawnDistance = 5f;
+    [SerializeField] private int initialSpawnCount = 1;
 
-    private void Update()
+    private float _nextSpawnX;
+
+    private void OnEnable()
     {
-        _timer += Time.deltaTime;
+        HoopMover.OnHoopPassed += HandleHoopPassed;
+        HoopMover.OnHoopMissed += HandleHoopMissed;
+    }
 
-        if (_timer >= spawnRate)
+    private void OnDisable()
+    {
+        HoopMover.OnHoopPassed -= HandleHoopPassed;
+        HoopMover.OnHoopMissed -= HandleHoopMissed;
+    }
+
+    private void Start()
+    {
+        _nextSpawnX = spawnX;
+
+        for (int i = 0; i < initialSpawnCount; i++)
         {
-            _timer = 0f;
-
             SpawnHoop();
         }
     }
 
-    private void SpawnHoop()
+    private void HandleHoopPassed(HoopMover mover)
     {
-        GameObject hoop = hoopPool.GetHoop();
+        SpawnHoop();
+    }
+
+    private void HandleHoopMissed(HoopMover mover)
+    {
+        GameManager.Ins.GameOver("Missed hoop!!");
+    }
+
+    public void SpawnHoop()
+    {
+        if (hoopPool == null) return;
+
+        GameObject obj = hoopPool.GetHoop();
 
         float randomY = Random.Range(minY, maxY);
 
-        hoop.transform.position = new Vector3(spawnX, randomY, 0f);
+        obj.transform.position = new Vector2(_nextSpawnX, randomY);
 
-        hoop.SetActive(true);
+        HoopMover mover = obj.GetComponent<HoopMover>();
+
+        if (mover == null) return;
+        mover.ResetState();
+
+        obj.SetActive(true);
+
+        _nextSpawnX = spawnDistance;
     }
 }

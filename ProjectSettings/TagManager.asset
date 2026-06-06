@@ -51,6 +51,9 @@ TagManager:
   - name: Dunky
     uniqueID: 736033389
     locked: 0
+  - name: Hoop
+    uniqueID: 1831353653
+    locked: 0
   - name: UI
     uniqueID: 760533513
     locked: 0
