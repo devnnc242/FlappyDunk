@@ -55,11 +55,11 @@ public class DunkController : MonoBehaviour
 
     private void Jump()
     {
-        Vector2 velocity = _rb.velocity;
+        // Vector2 velocity = _rb.velocity;
 
-        velocity.y = 0f;
+        // velocity.y = 0f;
 
-        _rb.velocity = velocity;
+        // _rb.velocity = velocity;
         _rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
 
         AudioManager.Ins.PlayJump();

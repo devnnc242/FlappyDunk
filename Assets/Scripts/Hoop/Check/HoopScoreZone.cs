@@ -3,17 +3,14 @@ using UnityEngine;
 public class HoopScoreZone : MonoBehaviour
 {
     private bool _hasScored;
-    private HoopMover _hoopMover;
+    private IHoop _hoop;
 
     private void Awake()
     {
-        _hoopMover = GetComponentInParent<HoopMover>();
+        _hoop = GetComponentInParent<IHoop>();
     }
 
-    private void OnEnable()
-    {
-        _hasScored = false;
-    }
+    private void OnEnable() => _hasScored = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -39,12 +36,11 @@ public class HoopScoreZone : MonoBehaviour
 
         ScoreManager.Ins.ProcessScore(dunk.TouchedRim);
         AudioManager.Ins.PlayScore();
-
         dunk.ResetRimState();
 
         _hasScored = true;
 
-        _hoopMover?.MarkScored();
+        _hoop?.MarkScored();
     }
 
     private void OnTriggerExit2D(Collider2D collision)

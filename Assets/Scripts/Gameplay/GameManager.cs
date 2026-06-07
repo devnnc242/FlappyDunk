@@ -60,7 +60,7 @@ public class GameManager : Singleton<GameManager>
         switch (currentState)
         {
             case GameState.Ready:
-                Time.timeScale = 0f;
+                //Time.timeScale = 0f;
 
                 UIManager.Ins.HidePausePanel();
                 UIManager.Ins.HideGameOverPanel();
@@ -68,7 +68,7 @@ public class GameManager : Singleton<GameManager>
                 break;
 
             case GameState.Playing:
-                Time.timeScale = 1f;
+                //Time.timeScale = 1f;
 
                 UIManager.Ins.HidePausePanel();
                 UIManager.Ins.HideGameOverPanel();

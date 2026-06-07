@@ -2,13 +2,14 @@ using System;
 using DG.Tweening;
 using UnityEngine;
 
-public class HoopMover : MonoBehaviour
+public class HoopMover : MonoBehaviour, IHoop
 {
     public static event Action<HoopMover> OnHoopPassed;
     public static event Action<HoopMover> OnHoopMissed;
 
-    [SerializeField] private float moveSpeed = 4f;
-    [SerializeField] private float limitX = -7f;
+    //IHoop
+    public GameObject Hoop => gameObject;
+    public bool IsScored => _scored;
 
     [Header("Scored Animation")]
     [SerializeField] private float scoredScale = 1.25f;
@@ -68,6 +69,18 @@ public class HoopMover : MonoBehaviour
         DOVirtual.DelayedCall(disappearDelay, PlayScoredAnimation);
     }
 
+    public void OnReadchedLimit()
+    {
+        if (_scored)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+
+        OnHoopMissed?.Invoke(this);
+        gameObject.SetActive(false);
+    }
+
     private void PlayScoredAnimation()
     {
         foreach (Collider2D col in _colliders)
@@ -87,23 +100,5 @@ public class HoopMover : MonoBehaviour
         }
 
         _scoredSequence.OnComplete(() => gameObject.SetActive(false));
-    }
-
-    private void Update()
-    {
-        if (GameManager.Ins.IsGameOver) return;
-
-        transform.Translate(Vector2.left * moveSpeed * Time.deltaTime);
-
-        if (transform.position.x < limitX)
-        {
-            if (_scored)
-            {
-                gameObject.SetActive(false);
-                return;
-            }
-
-            OnHoopMissed?.Invoke(this);
-        }
     }
 }

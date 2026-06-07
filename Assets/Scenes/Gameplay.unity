@@ -937,6 +937,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1012,12 +1013,27 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.97, y: 0.06, z: -10}
+  m_LocalPosition: {x: -1.4, y: 0.06, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2c612165fbe0584eaddb186d176949e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 2095358421}
+  offsetX: 1
+  smoothTime: 0.2
 --- !u!1 &595899310
 GameObject:
   m_ObjectHideFlags: 0
@@ -1103,6 +1119,52 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &604497671
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 604497672}
+  - component: {fileID: 604497673}
+  m_Layer: 0
+  m_Name: HoopConveyor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &604497672
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 604497671}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2137644166}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &604497673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 604497671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71a87827739218d41846ca59c439c72e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+  limitX: -7
 --- !u!1 &605262670
 GameObject:
   m_ObjectHideFlags: 0
@@ -1827,7 +1889,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bg1: {fileID: 1846345892}
   bg2: {fileID: 2044129168}
-  scrollSpeed: 3
+  scrollSpeed: 2
 --- !u!1 &1070950898
 GameObject:
   m_ObjectHideFlags: 0
@@ -3372,6 +3434,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!4 &2095358421 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6751208043282338316, guid: c5a1022387dffe1448e32b5ac9914455, type: 3}
+  m_PrefabInstance: {fileID: 3464394765087173636}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2137644165
 GameObject:
   m_ObjectHideFlags: 0
@@ -3407,6 +3474,7 @@ Transform:
   - {fileID: 605262671}
   - {fileID: 1659270908}
   - {fileID: 1070950899}
+  - {fileID: 604497672}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2138746926
@@ -3504,11 +3572,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6751208043282338316, guid: c5a1022387dffe1448e32b5ac9914455, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.37
+      value: -2.733
       objectReference: {fileID: 0}
     - target: {fileID: 6751208043282338316, guid: c5a1022387dffe1448e32b5ac9914455, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.522
       objectReference: {fileID: 0}
     - target: {fileID: 6751208043282338316, guid: c5a1022387dffe1448e32b5ac9914455, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3545,6 +3613,14 @@ PrefabInstance:
     - target: {fileID: 8137486438933494659, guid: c5a1022387dffe1448e32b5ac9914455, type: 3}
       propertyPath: m_Name
       value: BotDunky
+      objectReference: {fileID: 0}
+    - target: {fileID: 8980683237247564359, guid: c5a1022387dffe1448e32b5ac9914455, type: 3}
+      propertyPath: m_Mass
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8980683237247564359, guid: c5a1022387dffe1448e32b5ac9914455, type: 3}
+      propertyPath: m_AngularDrag
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

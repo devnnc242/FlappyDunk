@@ -7,7 +7,6 @@ public class HoopSpawner : MonoBehaviour
 
     [Header("Spawn")]
     [SerializeField] private float spawnX = 7f;
-
     [SerializeField] private float maxY = 3f;
     [SerializeField] private float minY = -2f;
 
@@ -38,32 +37,29 @@ public class HoopSpawner : MonoBehaviour
         }
     }
 
-    private void HandleHoopPassed(HoopMover mover)
-    {
-        SpawnHoop();
-    }
-
-    private void HandleHoopMissed(HoopMover mover)
-    {
-        GameManager.Ins.GameOver("Missed hoop!!");
-    }
+    //Handlers
+    private void HandleHoopPassed(IHoop hoop) => SpawnHoop();
+    private void HandleHoopMissed(IHoop hoop) => GameManager.Ins.GameOver("Missed hoop!");
 
     public void SpawnHoop()
     {
         if (hoopPool == null) return;
 
         GameObject obj = hoopPool.GetHoop();
+        if (obj == null) return;
 
         float randomY = Random.Range(minY, maxY);
 
         obj.transform.position = new Vector2(_nextSpawnX, randomY);
 
-        HoopMover mover = obj.GetComponent<HoopMover>();
+        IHoop hoop = obj.GetComponent<IHoop>();
 
-        if (mover == null) return;
-        mover.ResetState();
+        if (hoop == null) return;
+
+        hoop.ResetState();
 
         obj.SetActive(true);
+        HoopConveyor.Ins.Register(hoop);
 
         _nextSpawnX = spawnDistance;
     }
