@@ -10,6 +10,18 @@ public class InfiniteBackground : MonoBehaviour
     [SerializeField] private float scrollSpeed = 2f;
 
     private float _bgWidth;
+    private bool _isPausedByRimContact;
+
+    private void OnEnable()
+    {
+        DunkController.OnRimContactChanged += HandleRimContactChanged;
+    }
+
+    private void OnDisable()
+    {
+        DunkController.OnRimContactChanged -= HandleRimContactChanged;
+        _isPausedByRimContact = false;
+    }
 
     private void Start()
     {
@@ -21,6 +33,8 @@ public class InfiniteBackground : MonoBehaviour
 
     private void Update()
     {
+        if (_isPausedByRimContact) return;
+
         float delta = scrollSpeed * Time.deltaTime;
 
         bg1.position += Vector3.left * delta;
@@ -48,5 +62,10 @@ public class InfiniteBackground : MonoBehaviour
     public void SetSpeed(float speed)
     {
         scrollSpeed = speed;
+    }
+
+    private void HandleRimContactChanged(bool isTouching)
+    {
+        _isPausedByRimContact = isTouching;
     }
 }

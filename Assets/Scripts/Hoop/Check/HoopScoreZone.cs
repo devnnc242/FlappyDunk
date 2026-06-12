@@ -18,7 +18,7 @@ public class HoopScoreZone : MonoBehaviour
 
         if (_hasScored) return;
 
-        if (!collision.CompareTag("Dunk")) return;
+        if (!collision.CompareTag("Dunk")) return; 
 
         Rigidbody2D rb = collision.attachedRigidbody;
         DunkController dunk = collision.GetComponent<DunkController>();

@@ -10,6 +10,18 @@ public class HoopConveyor : Singleton<HoopConveyor>
 
     private readonly List<IHoop> _active = new();
     private readonly List<IHoop> _toRemove = new(); //avoid mid-loop mutation
+    private bool _isPausedByRimContact;
+
+    private void OnEnable()
+    {
+        DunkController.OnRimContactChanged += HandleRimContactChanged;
+    }
+
+    private void OnDisable()
+    {
+        DunkController.OnRimContactChanged -= HandleRimContactChanged;
+        _isPausedByRimContact = false;
+    }
 
     //Registration API
     public void Register(IHoop hoop)
@@ -22,6 +34,7 @@ public class HoopConveyor : Singleton<HoopConveyor>
     private void Update()
     {
         if (!GameManager.Ins.IsPlaying) return;
+        if (_isPausedByRimContact) return;
 
         float delta = moveSpeed * Time.deltaTime;
 
@@ -46,4 +59,9 @@ public class HoopConveyor : Singleton<HoopConveyor>
     }
 
     public void SetSpeed(float speed) => moveSpeed = speed;
+
+    private void HandleRimContactChanged(bool isTouching)
+    {
+        _isPausedByRimContact = isTouching;
+    }
 }

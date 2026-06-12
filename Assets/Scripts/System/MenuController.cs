@@ -59,11 +59,9 @@ public class MenuController : MonoBehaviour
         AnimateTab(menuBtn, isMenu);
         AnimateTab(skinBtn, isSkin);
 
-        menuImage.color =
-            isMenu ? selectedColor : normalColor;
+        menuImage.color = isMenu ? selectedColor : normalColor;
 
-        skinImage.color =
-            isSkin ? selectedColor : normalColor;
+        skinImage.color = isSkin ? selectedColor : normalColor;
 
         menuPanel.SetActive(isMenu);
         skinPanel.SetActive(isSkin);

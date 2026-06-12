@@ -47,8 +47,6 @@ public class ScoreManager : Singleton<ScoreManager>
         OnComboChanged?.Invoke(_cleanCombo);
 
         CheckHighScore();
-
-        //Debug.Log($"Score: {_score} (+{scoreToAdd}, x{_cleanCombo})");
     }
 
     private void CheckHighScore()

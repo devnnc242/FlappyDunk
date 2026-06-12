@@ -7,6 +7,7 @@ public class HoopPool : MonoBehaviour
     [SerializeField] private int initialSize = 4;
 
     private readonly List<GameObject> _pool = new();
+    private HoopConveyor _hoopConveyor;
 
     void Awake()
     {
@@ -26,18 +27,18 @@ public class HoopPool : MonoBehaviour
         return CreateHoop();
     }
 
-    // public void Return(GameObject hoop)
-    // {
-    //     hoop.SetActive(false);
-    // }
+    public void Return(GameObject hoop)
+    {
+        hoop.SetActive(false);
+    }
 
-    // public void ReturnAll()
-    // {
-    //     foreach (var obj in _pool)
-    //     {
-    //         obj.SetActive(false);
-    //     }
-    // }
+    public void ReturnAll()
+    {
+        foreach (var obj in _pool)
+        {
+            obj.SetActive(false);
+        }
+    }
 
     private GameObject CreateHoop()
     {

@@ -1,9 +1,12 @@
+using System;
 using DG.Tweening;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class DunkController : MonoBehaviour
 {
+    public static event Action<bool> OnRimContactChanged;
+
     [Header("Fly")]
     [SerializeField] private float jumpForce = 8f;
 
@@ -23,6 +26,7 @@ public class DunkController : MonoBehaviour
 
     private Rigidbody2D _rb;
     private bool _touchedRim;
+    private int _rimContactCount;
     private Vector3 _leftWingDefaultRotation;
     private Vector3 _rightWingDefaultRotation;
     private Sequence _wingFlapSequence;
@@ -50,6 +54,13 @@ public class DunkController : MonoBehaviour
         if (readInputDirectly && IsTapDown())
         {
             Fly();
+        }
+
+        var velocity = _rb.velocity;
+        if (velocity.x != 0)
+        {
+            velocity.x = Mathf.Lerp(velocity.x, 0, Time.deltaTime * 10f);
+            _rb.velocity = velocity;
         }
     }
 
@@ -157,11 +168,24 @@ public class DunkController : MonoBehaviour
         return Input.GetTouch(0).phase == TouchPhase.Began;
     }
 
+    //private bool _touched;
+
+    //private Tween _delay;
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Hoop"))
+        if (IsHoopCollision(collision))
         {
             _touchedRim = true;
+            SetRimContact(true);
+            //_touched = true;
+
+            //_delay?.Kill();
+            //_delay = DOVirtual.DelayedCall(0.5f, () => _touched = false);
+
+            // var velocity = _rb.velocity;
+            // velocity.x = 0f;
+            // _rb.velocity = velocity;
             AudioManager.Ins.PlayScore();
             return;
         }
@@ -172,14 +196,63 @@ public class DunkController : MonoBehaviour
         }
     }
 
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (!IsHoopCollision(collision)) return;
+
+        _rimContactCount = Mathf.Max(0, _rimContactCount - 1);
+
+        if (_rimContactCount == 0)
+        {
+            OnRimContactChanged?.Invoke(false);
+        }
+    }
+
     public void ResetRimState()
     {
         _touchedRim = false;
     }
 
+    private void OnDisable()
+    {
+        ClearRimContact();
+    }
+
     private void OnDestroy()
     {
         _wingFlapSequence?.Kill();
+        ClearRimContact();
+    }
+
+    private void ClearRimContact()
+    {
+        if (_rimContactCount > 0)
+        {
+            _rimContactCount = 0;
+            OnRimContactChanged?.Invoke(false);
+        }
+    }
+
+    private void SetRimContact(bool isTouching)
+    {
+        if (!isTouching) return;
+
+        _rimContactCount++;
+
+        if (_rimContactCount == 1)
+        {
+            OnRimContactChanged?.Invoke(true);
+        }
+    }
+
+    private bool IsHoopCollision(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Hoop"))
+        {
+            return true;
+        }
+
+        return collision.transform.GetComponentInParent<IHoop>() != null;
     }
 
     private bool IsBottomBoundary(Transform collisionTransform)
