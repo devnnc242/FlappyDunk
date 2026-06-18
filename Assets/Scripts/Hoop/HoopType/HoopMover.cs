@@ -66,7 +66,7 @@ public class HoopMover : MonoBehaviour, IHoop
         OnHoopPassed?.Invoke(this);
 
         //PlayScoredAnimation();
-        DOVirtual.DelayedCall(disappearDelay, PlayScoredAnimation);
+        DOVirtual.DelayedCall(disappearDelay, PlayScoredAnimation).SetLink(gameObject);
     }
 
     public void OnReadchedLimit()

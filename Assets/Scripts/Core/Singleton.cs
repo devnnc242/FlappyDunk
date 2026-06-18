@@ -14,8 +14,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
                 if (_ins == null)
                 {
-                    GameObject singleton = new GameObject(typeof(T).Name);
-                    _ins = singleton.AddComponent<T>();
+                    Debug.LogError($"Singleton {typeof(T).Name} not found in scene");
                 }
             }
 
@@ -25,37 +24,20 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
     protected virtual void Awake()
     {
-
-    }
-
-    public void MakeSingleton(bool destroyOnLoad)
-    {
         if (_ins == null)
         {
             _ins = this as T;
 
-            if (destroyOnLoad)
+            if (DontDestroy)
             {
-                var root = transform.root;
-
-                if (root != transform)
-                {
-                    DontDestroyOnLoad(root);
-                }
-                else
-                {
-                    DontDestroyOnLoad(this.gameObject);
-                }
+                DontDestroyOnLoad(gameObject);
             }
         }
-        else if (_ins == this)
-        {
-            return;
-        }
-
-        else
+        else if (_ins != this)
         {
             Destroy(gameObject);
         }
     }
+
+    protected virtual bool DontDestroy => false;
 }

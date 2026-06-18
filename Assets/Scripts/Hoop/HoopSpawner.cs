@@ -17,13 +17,13 @@ public class HoopSpawner : MonoBehaviour
 
     private void OnEnable()
     {
-        HoopMover.OnHoopPassed += HandleHoopPassed;
+        //HoopMover.OnHoopPassed += HandleHoopPassed;
         HoopMover.OnHoopMissed += HandleHoopMissed;
     }
 
     private void OnDisable()
     {
-        HoopMover.OnHoopPassed -= HandleHoopPassed;
+        //HoopMover.OnHoopPassed -= HandleHoopPassed;
         HoopMover.OnHoopMissed -= HandleHoopMissed;
     }
 
@@ -33,34 +33,34 @@ public class HoopSpawner : MonoBehaviour
 
         for (int i = 0; i < initialSpawnCount; i++)
         {
-            SpawnHoop();
+            //SpawnHoop();
         }
     }
 
     //Handlers
-    private void HandleHoopPassed(IHoop hoop) => SpawnHoop();
+    //private void HandleHoopPassed(IHoop hoop) => SpawnHoop();
     private void HandleHoopMissed(IHoop hoop) => GameManager.Ins.GameOver("Missed hoop!");
 
-    public void SpawnHoop()
-    {
-        if (hoopPool == null) return;
+    // public void SpawnHoop()
+    // {
+    //     if (hoopPool == null) return;
 
-        GameObject obj = hoopPool.GetHoop();
-        if (obj == null) return;
+    //     GameObject obj = hoopPool.GetHoop();
+    //     if (obj == null) return;
 
-        float randomY = Random.Range(minY, maxY);
+    //     float randomY = Random.Range(minY, maxY);
 
-        obj.transform.position = new Vector2(_nextSpawnX, randomY);
+    //     obj.transform.position = new Vector2(_nextSpawnX, randomY);
 
-        IHoop hoop = obj.GetComponent<IHoop>();
+    //     IHoop hoop = obj.GetComponent<IHoop>();
 
-        if (hoop == null) return;
+    //     if (hoop == null) return;
 
-        hoop.ResetState();
+    //     hoop.ResetState();
 
-        obj.SetActive(true);
-        HoopConveyor.Ins.Register(hoop);
+    //     obj.SetActive(true);
+    //     HoopConveyor.Ins.Register(hoop);
 
-        _nextSpawnX = spawnDistance;
-    }
+    //     _nextSpawnX = spawnDistance;
+    // }
 }

@@ -1,52 +1,62 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Pool;
 
-public class HoopPool : MonoBehaviour
+public class HoopPool : Singleton<HoopPool>
 {
-    [SerializeField] private GameObject hoopPrefab;
-    [SerializeField] private int initialSize = 4;
+    [Header("Prefabs")]
+    [SerializeField] private NormalHoop normalPrefab;
+    [SerializeField] private MovingHoop movingPrefab;
+    [SerializeField] private SpikeHoop spikePrefab;
 
-    private readonly List<GameObject> _pool = new();
+    private readonly Dictionary<HoopType, ObjectPool<HoopBase>> _pools = new();
 
-    void Awake()
+    protected override void Awake()
     {
-        for (int i = 0; i < initialSize; i++)
-        {
-            CreateHoop();
-        }
+        base.Awake();
+
+
     }
 
-    public GameObject GetHoop()
+    private void CreatePool(HoopType type, HoopBase prefabs)
     {
-        foreach (var obj in _pool)
+        _pools[type] = new ObjectPool<HoopBase>(() =>
         {
-            if (!obj.activeInHierarchy) return obj;
-        }
+            HoopBase hoop = Instantiate(prefabs, transform);
+            hoop.gameObject.SetActive(false);
 
-        return CreateHoop();
+            return hoop;
+        },
+
+hoop =>
+{
+    hoop.ResetState();
+    hoop.gameObject.SetActive(true);
+},
+
+hoop =>
+{
+    hoop.gameObject.SetActive(false);
+},
+
+hoop =>
+{
+    Destroy(hoop.gameObject);
+},
+
+false,
+5,
+20
+        );
     }
 
-    // public void Return(GameObject hoop)
-    // {
-    //     hoop.SetActive(false);
-    // }
-
-    // public void ReturnAll()
-    // {
-    //     foreach (var obj in _pool)
-    //     {
-    //         obj.SetActive(false);
-    //     }
-    // }
-
-    private GameObject CreateHoop()
+    public HoopBase Get(HoopType type)
     {
-        GameObject obj = Instantiate(hoopPrefab, transform);
+        return _pools[type].Get();
+    }
 
-        obj.SetActive(false);
-
-        _pool.Add(obj);
-
-        return obj;
+    public void Release(HoopType type, HoopBase hoop)
+    {
+        _pools[type].Release(hoop);
     }
 }
