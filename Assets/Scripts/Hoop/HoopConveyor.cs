@@ -8,7 +8,7 @@ public class HoopConveyor : Singleton<HoopConveyor>
 
     public float MoveSpeed => moveSpeed;
 
-    private readonly List<IHoop> _active = new();
+    private readonly HashSet<IHoop> _active = new();
     private readonly List<IHoop> _toRemove = new(); //avoid mid-loop mutation
 
     //Registration API

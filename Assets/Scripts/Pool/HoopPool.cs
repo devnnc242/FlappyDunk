@@ -18,15 +18,18 @@ public class HoopPool : Singleton<HoopPool>
 
     }
 
-    private void CreatePool(HoopType type, HoopBase prefabs)
+    private void CreatePool(HoopType type, HoopBase prefab)
     {
-        _pools[type] = new ObjectPool<HoopBase>(() =>
-        {
-            HoopBase hoop = Instantiate(prefabs, transform);
-            hoop.gameObject.SetActive(false);
+        _pools[type] = new ObjectPool<HoopBase>(
+            () =>
+            {
+                HoopBase hoop = Instantiate(prefab, transform);
 
-            return hoop;
-        },
+                hoop.gameObject.SetActive(false);
+
+                return hoop;
+            },
+
 
 hoop =>
 {
@@ -55,8 +58,8 @@ false,
         return _pools[type].Get();
     }
 
-    public void Release(HoopType type, HoopBase hoop)
+    public void Release(HoopBase hoop)
     {
-        _pools[type].Release(hoop);
+        _pools[hoop.Type].Release(hoop);
     }
 }

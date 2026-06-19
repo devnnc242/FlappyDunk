@@ -21,7 +21,7 @@ public class UIManager : Singleton<UIManager>
 
     protected override void Awake()
     {
-        MakeSingleton(false);
+        //MakeSingleton(false);
     }
 
     private void Start()

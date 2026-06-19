@@ -11,7 +11,7 @@ public class GameManager : Singleton<GameManager>
 
     protected override void Awake()
     {
-        MakeSingleton(false);
+        //MakeSingleton(false);
     }
 
     private void Start()

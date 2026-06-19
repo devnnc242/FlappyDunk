@@ -2,10 +2,6 @@ using UnityEngine;
 
 public class HoopSpawner : MonoBehaviour
 {
-
-    [SerializeField] private HoopPool hoopPool;
-
-    [Header("Spawn")]
     [SerializeField] private float spawnX = 7f;
     [SerializeField] private float maxY = 3f;
     [SerializeField] private float minY = -2f;
@@ -17,14 +13,14 @@ public class HoopSpawner : MonoBehaviour
 
     private void OnEnable()
     {
-        //HoopMover.OnHoopPassed += HandleHoopPassed;
-        HoopMover.OnHoopMissed += HandleHoopMissed;
+        HoopBase.OnHoopPassed += HandlePassed;
+        HoopBase.OnHoopMissed += HandleMissed;
     }
 
     private void OnDisable()
     {
-        //HoopMover.OnHoopPassed -= HandleHoopPassed;
-        HoopMover.OnHoopMissed -= HandleHoopMissed;
+        HoopBase.OnHoopPassed -= HandlePassed;
+        HoopBase.OnHoopMissed -= HandleMissed;
     }
 
     private void Start()
@@ -33,34 +29,30 @@ public class HoopSpawner : MonoBehaviour
 
         for (int i = 0; i < initialSpawnCount; i++)
         {
-            //SpawnHoop();
+            SpawnHoop();
         }
     }
 
-    //Handlers
-    //private void HandleHoopPassed(IHoop hoop) => SpawnHoop();
-    private void HandleHoopMissed(IHoop hoop) => GameManager.Ins.GameOver("Missed hoop!");
+    private void HandlePassed(IHoop hoop)
+    {
+        SpawnHoop();
+    }
 
-    // public void SpawnHoop()
-    // {
-    //     if (hoopPool == null) return;
+    private void HandleMissed(IHoop hoop)
+    {
+        GameManager.Ins.GameOver("Missed hoop!");
+    }
 
-    //     GameObject obj = hoopPool.GetHoop();
-    //     if (obj == null) return;
+    private void SpawnHoop()
+    {
+        HoopType type = (HoopType)Random.Range(0, 3);
 
-    //     float randomY = Random.Range(minY, maxY);
+        HoopBase hoop = HoopPool.Ins.Get(type);
 
-    //     obj.transform.position = new Vector2(_nextSpawnX, randomY);
+        hoop.transform.position = new Vector2(_nextSpawnX, Random.Range(minY, maxY));
 
-    //     IHoop hoop = obj.GetComponent<IHoop>();
+        HoopConveyor.Ins.Register(hoop);
 
-    //     if (hoop == null) return;
-
-    //     hoop.ResetState();
-
-    //     obj.SetActive(true);
-    //     HoopConveyor.Ins.Register(hoop);
-
-    //     _nextSpawnX = spawnDistance;
-    // }
+        _nextSpawnX = spawnDistance;
+    }
 }

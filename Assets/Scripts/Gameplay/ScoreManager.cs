@@ -18,7 +18,7 @@ public class ScoreManager : Singleton<ScoreManager>
 
     protected override void Awake()
     {
-        MakeSingleton(false);
+        //MakeSingleton(false);
 
         _highScore = PlayerPrefs.GetInt(Constant.HIGH_SCORE, 0);
     }
