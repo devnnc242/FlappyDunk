@@ -9,6 +9,10 @@ public class HoopPool : Singleton<HoopPool>
     [SerializeField] private MovingHoop movingPrefab;
     [SerializeField] private SpikeHoop spikePrefab;
 
+    [Header("Pool setting")]
+    [SerializeField] private int defaultCapacity = 5;
+    [SerializeField] private int maxSize = 20;
+
     private readonly Dictionary<HoopType, ObjectPool<HoopBase>> _pools = new();
 
     protected override void Awake()
@@ -21,7 +25,7 @@ public class HoopPool : Singleton<HoopPool>
     private void CreatePool(HoopType type, HoopBase prefab)
     {
         _pools[type] = new ObjectPool<HoopBase>(
-            () =>
+            createFunc: () =>
             {
                 HoopBase hoop = Instantiate(prefab, transform);
 
@@ -31,35 +35,41 @@ public class HoopPool : Singleton<HoopPool>
             },
 
 
-hoop =>
+actionOnGet: hoop =>
 {
     hoop.ResetState();
     hoop.gameObject.SetActive(true);
 },
 
-hoop =>
+actionOnRelease: hoop =>
 {
     hoop.gameObject.SetActive(false);
 },
 
-hoop =>
+actionOnDestroy: hoop =>
 {
     Destroy(hoop.gameObject);
 },
 
-false,
-5,
-20
+collectionCheck: false,
+defaultCapacity: defaultCapacity,
+maxSize: maxSize
         );
     }
 
     public HoopBase Get(HoopType type)
     {
-        return _pools[type].Get();
+        if (!_pools.TryGetValue(type, out var pool)) return null;
+
+        return pool.Get();
     }
 
     public void Release(HoopBase hoop)
     {
-        _pools[hoop.Type].Release(hoop);
+        if (hoop == null) return;
+
+        if (!_pools.TryGetValue(hoop.Type, out var pool)) return;
+
+        pool.Release(hoop);
     }
 }

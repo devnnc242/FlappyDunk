@@ -5,7 +5,6 @@ public class HoopScoredAnimation : MonoBehaviour
 {
     [SerializeField] private float scoredScale = 1.25f;
     [SerializeField] private float scoredDuration = 0.35f;
-    [SerializeField] private Ease scoredEase = Ease.OutBack;
     [SerializeField] private float disappearDelay = 0.5f;
 
     private Vector3 _defaultScale;
@@ -18,8 +17,12 @@ public class HoopScoredAnimation : MonoBehaviour
 
     private Sequence _sequence;
 
+    private HoopBase _hoop;
+
     private void Aake()
     {
+        _hoop = GetComponent<HoopBase>();
+
         _defaultScale = transform.localScale;
 
         _renderers = GetComponentsInChildren<SpriteRenderer>(true);
@@ -53,10 +56,10 @@ public class HoopScoredAnimation : MonoBehaviour
 
     public void Play()
     {
-        DOVirtual.DelayedCall(disappearDelay, PlayInternal).SetLink(gameObject);
+        DOVirtual.DelayedCall(disappearDelay, PlayAnimation).SetLink(gameObject);
     }
 
-    private void PlayInternal()
+    private void PlayAnimation()
     {
         foreach (Collider2D col in _colliders)
         {
@@ -74,6 +77,11 @@ public class HoopScoredAnimation : MonoBehaviour
             _sequence.Join(sr.DOFade(0f, scoredDuration));
         }
 
-        _sequence.OnComplete(() => gameObject.SetActive(false));
+        _sequence.OnComplete(() =>
+        {
+            HoopConveyor.Ins.RemoveHoop(_hoop);
+
+            HoopPool.Ins.Release(_hoop);
+        });
     }
 }

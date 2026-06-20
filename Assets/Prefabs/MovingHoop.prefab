@@ -93,6 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4527174352832886255}
+  - component: {fileID: 5862623342270048874}
   m_Layer: 0
   m_Name: MovingHoop
   m_TagString: Untagged
@@ -117,6 +118,21 @@ Transform:
   - {fileID: 2833389603742466524}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5862623342270048874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1296512791024984968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 470b3b73935109742b96f372342d682f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+  amplitude: 1
+  visual: {fileID: 2833389603742466524}
 --- !u!1 &1614859892339910753
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,6 +143,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7860985465702503100}
   - component: {fileID: 7248185487248209823}
+  - component: {fileID: 8474773704178337728}
   m_Layer: 6
   m_Name: Point
   m_TagString: Point
@@ -194,6 +211,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.23, y: 0.24}
   m_EdgeRadius: 0
+--- !u!114 &8474773704178337728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1614859892339910753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 904234b0ef445a3468c3353839ab5cae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4233897725970279462
 GameObject:
   m_ObjectHideFlags: 0

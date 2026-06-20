@@ -3,11 +3,11 @@ using UnityEngine;
 public class HoopScoreZone : MonoBehaviour
 {
     private bool _hasScored;
-    private HoopBase _hoop;
+    private IHoop _hoop;
 
     private void Awake()
     {
-        _hoop = GetComponentInParent<HoopBase>();
+        _hoop = GetComponentInParent<IHoop>();
     }
 
     private void OnEnable() => _hasScored = false;

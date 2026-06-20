@@ -2596,9 +2596,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4947400d4cf3f77479b08b44af582242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalPrefab: {fileID: 0}
-  movingPrefab: {fileID: 0}
-  spikePrefab: {fileID: 0}
+  normalPrefab: {fileID: 8713936516484271557, guid: ba923eabefb262743a3822625c411103, type: 3}
+  movingPrefab: {fileID: 5862623342270048874, guid: 1694cc4b22458154dbe1b8827e9dee5d, type: 3}
+  spikePrefab: {fileID: 7191947804795245921, guid: bff15f7a791eaf44f91a9e8926e625d7, type: 3}
+  defaultCapacity: 5
+  maxSize: 20
 --- !u!1 &1705629325
 GameObject:
   m_ObjectHideFlags: 0

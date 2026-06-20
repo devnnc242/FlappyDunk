@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 3912421997024670575}
   - component: {fileID: 2981230212979767612}
   m_Layer: 6
-  m_Name: Circle
+  m_Name: LeftSpike
   m_TagString: Hoop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -114,7 +114,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3269100147432430430}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 1, w: -0.00000004371139}
   m_LocalPosition: {x: -1.06, y: 0, z: 0}
   m_LocalScale: {x: 0.84, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -161,7 +161,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1831353653
   m_SortingLayer: 3
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 3a96f3661f5474f43b9a954eb695789e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -220,7 +220,7 @@ GameObject:
   - component: {fileID: 4114486183021150722}
   - component: {fileID: 4780551325467294784}
   m_Layer: 6
-  m_Name: Circle
+  m_Name: RightSpike
   m_TagString: Hoop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -281,7 +281,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1831353653
   m_SortingLayer: 3
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 3a96f3661f5474f43b9a954eb695789e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -421,6 +421,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1603732412937504697}
+  - component: {fileID: 7191947804795245921}
+  - component: {fileID: 6964301752501867732}
   m_Layer: 0
   m_Name: SpikeHoop
   m_TagString: Untagged
@@ -444,6 +446,30 @@ Transform:
   - {fileID: 6844350665939326595}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7191947804795245921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5682097348930708964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1af8409771930db46afc7635f51db645, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6964301752501867732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5682097348930708964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e93b5671679d11a469775a09587b824a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6077358680517754783
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,6 +480,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3584776410742224748}
   - component: {fileID: 9055327022360996510}
+  - component: {fileID: 7099874334942795813}
   m_Layer: 6
   m_Name: Point
   m_TagString: Point
@@ -521,6 +548,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.23, y: 0.24}
   m_EdgeRadius: 0
+--- !u!114 &7099874334942795813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6077358680517754783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 904234b0ef445a3468c3353839ab5cae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7764783062469447319
 GameObject:
   m_ObjectHideFlags: 0

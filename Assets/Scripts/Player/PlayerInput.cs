@@ -1,11 +1,10 @@
 using System;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class PlayerInput : MonoBehaviour
 {
     //public event Action OnTap;
-    public UnityEvent OnTap;
+    public event Action OnTap;
 
     void Update()
     {
@@ -16,14 +15,9 @@ public class PlayerInput : MonoBehaviour
         }
 #endif
 
-        if (Input.touchCount > 0)
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
-            Touch touch = Input.GetTouch(0);
-
-            if (touch.phase == TouchPhase.Began)
-            {
-                OnTap?.Invoke();
-            }
+            OnTap?.Invoke();
         }
     }
 }

@@ -45,14 +45,31 @@ public class HoopSpawner : MonoBehaviour
 
     private void SpawnHoop()
     {
-        HoopType type = (HoopType)Random.Range(0, 3);
+        HoopType type = GetRandomType();
 
         HoopBase hoop = HoopPool.Ins.Get(type);
 
-        hoop.transform.position = new Vector2(_nextSpawnX, Random.Range(minY, maxY));
+        if (hoop == null) return;
 
-        HoopConveyor.Ins.Register(hoop);
+        float randomY = Random.Range(minY, maxY);
+
+        hoop.transform.position = new Vector2(_nextSpawnX, randomY);
+
+        hoop.ResetState();
+
+        HoopConveyor.Ins.AddHoop(hoop);
 
         _nextSpawnX = spawnDistance;
+    }
+
+    private HoopType GetRandomType()
+    {
+        float roll = Random.value;
+
+        if (roll < 0.6f) return HoopType.Normal;
+
+        if (roll < 0.9f) return HoopType.Moving;
+
+        return HoopType.Spike;
     }
 }

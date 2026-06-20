@@ -6,22 +6,38 @@ public class HoopConveyor : Singleton<HoopConveyor>
     [SerializeField] private float moveSpeed = 4f;
     [SerializeField] private float limitX = -7f;
 
-    public float MoveSpeed => moveSpeed;
-
     private readonly HashSet<IHoop> _active = new();
     private readonly List<IHoop> _toRemove = new(); //avoid mid-loop mutation
 
-    //Registration API
-    public void Register(IHoop hoop)
+    private GameManager _gameManager;
+
+    public float MoveSpeed => moveSpeed;
+
+    protected override void Awake()
     {
-        if (!_active.Contains(hoop)) _active.Add(hoop);
+        base.Awake();
+
+        _gameManager = GameManager.Ins;
     }
 
-    public void Unregister(IHoop hoop) => _active.Remove(hoop);
+    //Registration API
+    public void AddHoop(IHoop hoop)
+    {
+        if (hoop == null) return;
+
+        _active.Add(hoop);
+    }
+
+    public void RemoveHoop(IHoop hoop)
+    {
+        if (hoop == null) return;
+
+        _active.Remove(hoop);
+    }
 
     private void Update()
     {
-        if (!GameManager.Ins.IsPlaying) return;
+        if (!_gameManager.IsPlaying) return;
 
         float delta = moveSpeed * Time.deltaTime;
 
@@ -30,11 +46,13 @@ public class HoopConveyor : Singleton<HoopConveyor>
         foreach (IHoop hoop in _active)
         {
             Transform t = hoop.Hoop.transform;
-            t.Translate(Vector2.left * delta);
+
+            t.Translate(Vector3.left * delta, Space.World);
 
             if (t.position.x < limitX)
             {
                 _toRemove.Add(hoop);
+
                 hoop.OnReadchedLimit();
             }
         }

@@ -41,14 +41,16 @@ public abstract class HoopBase : MonoBehaviour, IHoop
 
     public virtual void OnReadchedLimit()
     {
-        if (isScored)
+        if (!isScored)
         {
-            HoopPool.Ins.Release(this);
-            return;
+            OnHoopMissed?.Invoke(this);
         }
 
-        OnHoopMissed?.Invoke(this);
-
         HoopPool.Ins.Release(this);
+    }
+
+    public virtual void TickMovement()
+    {
+
     }
 }

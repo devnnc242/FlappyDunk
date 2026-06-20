@@ -315,7 +315,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8893534009403839624}
-  - component: {fileID: 3000295538900360936}
+  - component: {fileID: 8713936516484271557}
   m_Layer: 0
   m_Name: NormalHoop
   m_TagString: Untagged
@@ -339,7 +339,7 @@ Transform:
   - {fileID: 387878531720330753}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3000295538900360936
+--- !u!114 &8713936516484271557
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -348,15 +348,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7480863323355759169}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82d79fc3237efe347b92feb433837f8c, type: 3}
+  m_Script: {fileID: 11500000, guid: 21e17bbcea9ffac47865604a1681428c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
-  limitX: -3.74
-  scoredScale: 1.25
-  scoredDuration: 0.35
-  scoredEase: 27
-  disappearDelay: 0.2
 --- !u!1 &7538704172629715279
 GameObject:
   m_ObjectHideFlags: 0
