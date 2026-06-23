@@ -1,18 +1,18 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
-    public bool IsGameOver { get; private set; }
-
+    public event Action<GameState> OnStateChanged;
     public GameState currentState { get; private set; }
-    public bool IsPlaying => currentState == GameState.Playing;
-    public bool IsReady => currentState == GameState.Ready;
 
-    protected override void Awake()
-    {
-        //MakeSingleton(false);
-    }
+    public bool IsReady => currentState == GameState.Ready;
+    public bool IsPlaying => currentState == GameState.Playing;
+    public bool IsPaused => currentState == GameState.Paused;
+    public bool IsGameOver => currentState == GameState.GameOver;
+
+    protected override bool DontDestroy => base.DontDestroy;
 
     private void Start()
     {
@@ -22,22 +22,21 @@ public class GameManager : Singleton<GameManager>
     #region State
     public void StartGame()
     {
-        if (currentState != GameState.Ready) return;
+        if (!IsReady) return;
 
         SetState(GameState.Playing);
     }
 
     public void PauseGame()
     {
-        if (currentState != GameState.Playing) return;
+        if (!IsPlaying) return;
 
         SetState(GameState.Paused);
     }
 
     public void ResumeGame()
     {
-        if (currentState != GameState.Paused)
-            return;
+        if (!IsPaused) return;
 
         SetState(GameState.Playing);
     }
@@ -46,51 +45,29 @@ public class GameManager : Singleton<GameManager>
     {
         if (IsGameOver) return;
 
-        IsGameOver = true;
+        Debug.Log("Game Over: " + reason);
 
         SetState(GameState.GameOver);
-
-        Debug.Log("Game Over: " + reason);
     }
 
     private void SetState(GameState newState)
     {
         currentState = newState;
 
-        switch (currentState)
+        switch (newState)
         {
             case GameState.Ready:
-                //Time.timeScale = 0f;
-
-                UIManager.Ins.HidePausePanel();
-                UIManager.Ins.HideGameOverPanel();
-
-                break;
-
             case GameState.Playing:
-                //Time.timeScale = 1f;
-
-                UIManager.Ins.HidePausePanel();
-                UIManager.Ins.HideGameOverPanel();
-
+                Time.timeScale = 1f;
                 break;
 
             case GameState.Paused:
-                Time.timeScale = 0f;
-
-                UIManager.Ins.ShowPausePanel();
-
-                break;
-
             case GameState.GameOver:
                 Time.timeScale = 0f;
-
-                UIManager.Ins.ShowGameOverPanel();
-
                 break;
         }
 
-
+        OnStateChanged?.Invoke(newState);
     }
     #endregion
 
@@ -98,24 +75,25 @@ public class GameManager : Singleton<GameManager>
     public void RestartScene()
     {
         Time.timeScale = 1f;
-        IsGameOver = false;
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void LoadScene(int buildIndex)
+    {
+        Time.timeScale = 1f;
+
+        SceneManager.LoadScene(buildIndex);
     }
     #endregion
 
     #region Application
     private void OnApplicationPause(bool pause)
     {
-        if (pause && currentState == GameState.Playing)
+        if (pause && IsPlaying)
         {
             PauseGame();
         }
     }
     #endregion
-
-    public void Menu(int index)
-    {
-        SceneManager.LoadScene(index);
-    }
 }

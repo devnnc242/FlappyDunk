@@ -5,7 +5,6 @@ public class ScoreManager : Singleton<ScoreManager>
 {
     private int _score;
     private int _highScore;
-
     private int _cleanCombo = 1;
 
     public int Score => _score;
@@ -13,14 +12,18 @@ public class ScoreManager : Singleton<ScoreManager>
 
     public event Action<int> OnScoreChanged;
     public event Action<int> OnHighScoreChanged;
-
     public event Action<int> OnComboChanged;
 
-    protected override void Awake()
+    private void Start()
     {
-        //MakeSingleton(false);
+        LoadHighScore();
+    }
 
+    private void LoadHighScore()
+    {
         _highScore = PlayerPrefs.GetInt(Constant.HIGH_SCORE, 0);
+
+        OnHighScoreChanged?.Invoke(_highScore);
     }
 
     public void ProcessScore(bool touchedRim)
@@ -46,15 +49,11 @@ public class ScoreManager : Singleton<ScoreManager>
 
         OnComboChanged?.Invoke(_cleanCombo);
 
-        CheckHighScore();
-
-        //Debug.Log($"Score: {_score} (+{scoreToAdd}, x{_cleanCombo})");
+        if (_score > _highScore) UpdateHighScore();
     }
 
-    private void CheckHighScore()
+    private void UpdateHighScore()
     {
-        if (_score < _highScore) return;
-
         _highScore = _score;
 
         PlayerPrefs.SetInt(Constant.HIGH_SCORE, _highScore);
@@ -69,5 +68,6 @@ public class ScoreManager : Singleton<ScoreManager>
         _cleanCombo = 1;
 
         OnScoreChanged?.Invoke(_score);
+        OnComboChanged?.Invoke(_cleanCombo);
     }
 }

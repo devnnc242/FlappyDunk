@@ -10,7 +10,7 @@ public class UIManager : Singleton<UIManager>
 
     [Header("Score UI")]
     [SerializeField] private Text scoreText;
-    //[SerializeField] private Text highScoreText;
+    [SerializeField] private Text highScoreText;
 
     [Header("Combo UI")]
     [SerializeField] private Text comboText;
@@ -19,30 +19,80 @@ public class UIManager : Singleton<UIManager>
 
     private Coroutine _hideComboCoroutine;
 
+    private ScoreManager _scoreManager;
+    private GameManager _gameManager;
+
     protected override void Awake()
     {
-        //MakeSingleton(false);
+        base.Awake();
+
+        _scoreManager = ScoreManager.Ins;
+        _gameManager = GameManager.Ins;
+    }
+
+    private void OnEnable()
+    {
+        if (_scoreManager != null)
+        {
+            _scoreManager.OnScoreChanged += UpdateScore;
+            _scoreManager.OnHighScoreChanged += UpdateHighScore;
+            _scoreManager.OnComboChanged += UpdateCombo;
+        }
+
+        if (_gameManager != null)
+        {
+            //_gameManager.OnStateChanged +=
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (_scoreManager != null)
+        {
+            _scoreManager.OnScoreChanged -= UpdateScore;
+            _scoreManager.OnHighScoreChanged -= UpdateHighScore;
+            _scoreManager.OnComboChanged -= UpdateCombo;
+        }
+
+        if (_gameManager != null)
+        {
+
+        }
     }
 
     private void Start()
     {
-        UpdateScore(ScoreManager.Ins.Score);
-        UpdateHighScore(ScoreManager.Ins.HighScore);
+        UpdateScore(_scoreManager.Score);
+        UpdateHighScore(_scoreManager.HighScore);
 
         comboText.gameObject.SetActive(false);
 
-        ScoreManager.Ins.OnScoreChanged += UpdateScore;
-        ScoreManager.Ins.OnHighScoreChanged += UpdateHighScore;
-        ScoreManager.Ins.OnComboChanged += UpdateCombo;
+        pausePanel.SetActive(false);
+        gameOverPanel.SetActive(false);
     }
 
-    private void OnDestroy()
+    private void HandleGameStateChanged(GameState state)
     {
-        if (ScoreManager.Ins == null) return;
+        switch (state)
+        {
+            case GameState.Ready:
+                pausePanel.SetActive(false);
+                gameOverPanel.SetActive(false);
+                break;
 
-        ScoreManager.Ins.OnScoreChanged -= UpdateScore;
-        ScoreManager.Ins.OnHighScoreChanged -= UpdateHighScore;
-        ScoreManager.Ins.OnComboChanged -= UpdateCombo;
+            case GameState.Playing:
+                pausePanel.SetActive(false);
+                gameOverPanel.SetActive(false);
+                break;
+
+            case GameState.Paused:
+                pausePanel.SetActive(true);
+                break;
+
+            case GameState.GameOver:
+                gameOverPanel.SetActive(true);
+                break;
+        }
     }
 
     private void UpdateScore(int score)
@@ -52,7 +102,9 @@ public class UIManager : Singleton<UIManager>
 
     private void UpdateHighScore(int highScore)
     {
-        //highScoreText.text = $"Best: {highScore}";
+        if (highScoreText == null) return;
+
+        highScoreText.text = $"Best: {highScore}";
     }
 
     private void UpdateCombo(int combo)
@@ -64,7 +116,6 @@ public class UIManager : Singleton<UIManager>
         }
 
         comboText.gameObject.SetActive(true);
-
         comboText.text = $"x{combo}";
 
         if (_hideComboCoroutine != null)

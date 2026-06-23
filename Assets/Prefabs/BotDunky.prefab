@@ -270,6 +270,7 @@ GameObject:
   - component: {fileID: 2428260119637965961}
   - component: {fileID: 8751825047638339074}
   - component: {fileID: 5373031261328149081}
+  - component: {fileID: 2217449682105572526}
   m_Layer: 7
   m_Name: BotDunky
   m_TagString: Dunk
@@ -394,9 +395,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 3
+  m_Mass: 2
   m_LinearDrag: 0
-  m_AngularDrag: 4
+  m_AngularDrag: 1
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -681,14 +682,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1c9db28e3dfc914ba58a636306ee59c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInput: {fileID: 8751825047638339074}
+  wingAnimator: {fileID: 2217449682105572526}
   jumpForce: 12
-  readInputDirectly: 1
-  leftWing: {fileID: 7909892251224580084}
-  rightWing: {fileID: 7707586979484752703}
-  leftWingDownRotation: {x: 0, y: 0, z: 70}
-  rightWingDownRotation: {x: 0, y: 0, z: 70}
-  wingDownDuration: 0.08
-  wingUpDuration: 0.12
   bottomBoundaryName: Boundary_2
 --- !u!114 &8751825047638339074
 MonoBehaviour:
@@ -702,21 +698,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fe04e322374d48499a72542e73927d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnTap:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2428260119637965961}
-        m_TargetAssemblyTypeName: DunkController, Assembly-CSharp
-        m_MethodName: Fly
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &5373031261328149081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -733,3 +714,21 @@ MonoBehaviour:
   leftWingRenderer: {fileID: 4576264928290813209}
   rightWingRenderer: {fileID: 5399936280797037637}
   hatRenderer: {fileID: 7633204264879999413}
+--- !u!114 &2217449682105572526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8137486438933494659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 761cb42cd80f80a4dae365d1d63999f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftWing: {fileID: 7909892251224580084}
+  rightWing: {fileID: 7707586979484752703}
+  leftWingDownRotation: {x: 0, y: 0, z: -35}
+  rightWingDownRotation: {x: 0, y: 0, z: 35}
+  wingDownDuration: 0.08
+  wingUpDuration: 0.12

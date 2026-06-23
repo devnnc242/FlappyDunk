@@ -19,7 +19,9 @@ public class HoopPool : Singleton<HoopPool>
     {
         base.Awake();
 
-
+        CreatePool(HoopType.Normal, normalPrefab);
+        CreatePool(HoopType.Moving, movingPrefab);
+        CreatePool(HoopType.Spike, spikePrefab);
     }
 
     private void CreatePool(HoopType type, HoopBase prefab)

@@ -2411,7 +2411,7 @@ GameObject:
   - component: {fileID: 1605149376}
   m_Layer: 5
   m_Name: GameOverPanel
-  m_TagString: Untagged
+  m_TagString: GameOver
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3572,6 +3572,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2217449682105572526, guid: c5a1022387dffe1448e32b5ac9914455, type: 3}
+      propertyPath: leftWingDownRotation.z
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 2217449682105572526, guid: c5a1022387dffe1448e32b5ac9914455, type: 3}
+      propertyPath: rightWingDownRotation.z
+      value: 70
+      objectReference: {fileID: 0}
     - target: {fileID: 6751208043282338316, guid: c5a1022387dffe1448e32b5ac9914455, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.733
@@ -3615,14 +3623,6 @@ PrefabInstance:
     - target: {fileID: 8137486438933494659, guid: c5a1022387dffe1448e32b5ac9914455, type: 3}
       propertyPath: m_Name
       value: BotDunky
-      objectReference: {fileID: 0}
-    - target: {fileID: 8980683237247564359, guid: c5a1022387dffe1448e32b5ac9914455, type: 3}
-      propertyPath: m_Mass
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8980683237247564359, guid: c5a1022387dffe1448e32b5ac9914455, type: 3}
-      propertyPath: m_AngularDrag
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

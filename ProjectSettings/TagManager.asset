@@ -8,6 +8,7 @@ TagManager:
   - Hoop
   - Point
   - Dunk
+  - GameOver
   layers:
   - Default
   - TransparentFX
