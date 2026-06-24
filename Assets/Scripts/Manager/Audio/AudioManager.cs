@@ -1,54 +1,72 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioManager : Singleton<AudioManager>
 {
-    [Header("Music")]
+    [Header("Sources")]
     [SerializeField] private AudioSource musicSource;
-
-    [Header("SFX")]
     [SerializeField] private AudioSource sfxSource;
 
-    [Header("Clips")]
-    //[SerializeField] private AudioClip buttonClip;
-    [SerializeField] private AudioClip jumpClip;
-    [SerializeField] private AudioClip scoreClip;
-    //[SerializeField] private AudioClip gameOverClip;
+    [Header("Audio Database")]
+    [SerializeField] private AudioData[] audioDatabase;
 
-    // public void PlayButton()
-    // {
-    //     PlaySfx(buttonClip);
-    // }
+    private readonly Dictionary<SoundType, AudioClip> _clips = new();
 
-    public void PlayJump()
+    private GameManager _gameManager;
+
+    protected override void Awake()
     {
-        PlaySfx(jumpClip);
+        base.Awake();
+
+        foreach (AudioData data in audioDatabase)
+        {
+            if (!_clips.ContainsKey(data.type))
+            {
+                _clips.Add(data.type, data.clip);
+            }
+        }
     }
 
-    public void PlayScore()
+    private void Start()
     {
-        PlaySfx(scoreClip);
+        _gameManager = GameManager.Ins;
+
+        if (_gameManager != null)
+        {
+            _gameManager.OnStateChanged += HandleStateChanged;
+        }
     }
 
-    // public void PlayGameOver()
-    // {
-    //     PlaySfx(gameOverClip);
-    // }
+    private void OnDestroy()
+    {
+        if (_gameManager != null)
+        {
+            _gameManager.OnStateChanged -= HandleStateChanged;
+        }
+    }
+
+    private void HandleStateChanged(GameState state)
+    {
+        if (state == GameState.GameOver)
+        {
+            PlaySound(SoundType.GameOver);
+        }
+    }
+
+    public void PlaySound(SoundType type)
+    {
+        if (!_clips.TryGetValue(type, out AudioClip clip)) return;
+
+        sfxSource.PlayOneShot(clip);
+    }
 
     public void PlayMusic(AudioClip clip)
     {
-        if (musicSource == null || clip == null) return;
+        if (clip == null) return;
 
-        if (musicSource.clip == clip)
-            return;
+        if (musicSource.clip == clip) return;
 
         musicSource.clip = clip;
         musicSource.Play();
-    }
-
-    private void PlaySfx(AudioClip clip)
-    {
-        if (sfxSource == null || clip == null) return;
-
-        sfxSource.PlayOneShot(clip);
     }
 }

@@ -41,7 +41,7 @@ public class UIManager : Singleton<UIManager>
 
         if (_gameManager != null)
         {
-            //_gameManager.OnStateChanged +=
+            _gameManager.OnStateChanged += HandleGameStateChanged;
         }
     }
 
@@ -56,7 +56,7 @@ public class UIManager : Singleton<UIManager>
 
         if (_gameManager != null)
         {
-
+            _gameManager.OnStateChanged -= HandleGameStateChanged;
         }
     }
 

@@ -76,7 +76,7 @@ public class DunkController : MonoBehaviour
     {
         _rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
 
-        AudioManager.Ins.PlayJump();
+        AudioManager.Ins.PlaySound(SoundType.Jump);
 
         wingAnimator?.PlayFlap();
     }
@@ -125,8 +125,6 @@ public class DunkController : MonoBehaviour
             _touchedRim = true;
 
             SetRimContact(true);
-
-            AudioManager.Ins.PlayScore();
 
             return;
         }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SpikeDamage : MonoBehaviour
 {
-    private void OllisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (!collision.gameObject.CompareTag("Dunk")) return;
 

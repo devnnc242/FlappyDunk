@@ -19,7 +19,7 @@ public class HoopScoredAnimation : MonoBehaviour
 
     private HoopBase _hoop;
 
-    private void Aake()
+    private void Awake()
     {
         _hoop = GetComponent<HoopBase>();
 

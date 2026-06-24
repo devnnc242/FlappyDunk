@@ -9,6 +9,7 @@ TagManager:
   - Point
   - Dunk
   - GameOver
+  - Spike
   layers:
   - Default
   - TransparentFX

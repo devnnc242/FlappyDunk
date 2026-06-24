@@ -99,9 +99,10 @@ GameObject:
   - component: {fileID: 6432300074052860721}
   - component: {fileID: 3912421997024670575}
   - component: {fileID: 2981230212979767612}
+  - component: {fileID: 1269025279176589125}
   m_Layer: 6
   m_Name: LeftSpike
-  m_TagString: Hoop
+  m_TagString: Spike
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -115,7 +116,7 @@ Transform:
   m_GameObject: {fileID: 3269100147432430430}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 1, w: -0.00000004371139}
-  m_LocalPosition: {x: -1.06, y: 0, z: 0}
+  m_LocalPosition: {x: -1.195, y: 0.06, z: 0}
   m_LocalScale: {x: 0.84, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -207,7 +208,19 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Radius: 0.25
+--- !u!114 &1269025279176589125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3269100147432430430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e93b5671679d11a469775a09587b824a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3840144186971421703
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,9 +232,10 @@ GameObject:
   - component: {fileID: 1482614575303429742}
   - component: {fileID: 4114486183021150722}
   - component: {fileID: 4780551325467294784}
+  - component: {fileID: 9098963715882745763}
   m_Layer: 6
   m_Name: RightSpike
-  m_TagString: Hoop
+  m_TagString: Spike
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -235,7 +249,7 @@ Transform:
   m_GameObject: {fileID: 3840144186971421703}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.04, y: 0, z: 0}
+  m_LocalPosition: {x: 1.087, y: 0.04, z: 0}
   m_LocalScale: {x: 0.84, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -327,7 +341,19 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Radius: 0.25
+--- !u!114 &9098963715882745763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3840144186971421703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e93b5671679d11a469775a09587b824a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3989908780104625253
 GameObject:
   m_ObjectHideFlags: 0
@@ -422,7 +448,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1603732412937504697}
   - component: {fileID: 7191947804795245921}
-  - component: {fileID: 6964301752501867732}
   m_Layer: 0
   m_Name: SpikeHoop
   m_TagString: Untagged
@@ -456,18 +481,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1af8409771930db46afc7635f51db645, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6964301752501867732
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5682097348930708964}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e93b5671679d11a469775a09587b824a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6077358680517754783

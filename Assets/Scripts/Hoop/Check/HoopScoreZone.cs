@@ -35,8 +35,8 @@ public class HoopScoreZone : MonoBehaviour
         }
 
         ScoreManager.Ins.ProcessScore(dunk.TouchedRim);
-        AudioManager.Ins.PlayScore();
-        //dunk.ResetRimState();
+        AudioManager.Ins.PlaySound(SoundType.Score);
+        dunk.ResetRimState();
 
         _hasScored = true;
 

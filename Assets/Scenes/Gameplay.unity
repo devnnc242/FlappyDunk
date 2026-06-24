@@ -666,6 +666,7 @@ MonoBehaviour:
   pausePanel: {fileID: 920233191}
   gameOverPanel: {fileID: 1605149373}
   scoreText: {fileID: 644073823}
+  highScoreText: {fileID: 0}
   comboText: {fileID: 649040716}
   comboHideDelay: 1
 --- !u!1 &384197003
@@ -1937,8 +1938,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 936637897}
   sfxSource: {fileID: 384197005}
-  jumpClip: {fileID: 8300000, guid: 7f08ab53df69d444d953c98816be5ebf, type: 3}
-  scoreClip: {fileID: 8300000, guid: e9f3dd13cd56adc4b8bed721cbfe78d1, type: 3}
+  audioDatabase:
+  - type: 0
+    clip: {fileID: 8300000, guid: 7f08ab53df69d444d953c98816be5ebf, type: 3}
+  - type: 1
+    clip: {fileID: 8300000, guid: 6051b3ea8a9bf8c408fd6c8a0c832301, type: 3}
+  - type: 2
+    clip: {fileID: 8300000, guid: d3976beadc0822e4b9f52e3b258689a7, type: 3}
 --- !u!1 &1085376519
 GameObject:
   m_ObjectHideFlags: 0
@@ -2954,7 +2960,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 273286086}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: Menu
+        m_MethodName: LoadScene
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3580,6 +3586,10 @@ PrefabInstance:
       propertyPath: rightWingDownRotation.z
       value: 70
       objectReference: {fileID: 0}
+    - target: {fileID: 2428260119637965961, guid: c5a1022387dffe1448e32b5ac9914455, type: 3}
+      propertyPath: jumpForce
+      value: 7000
+      objectReference: {fileID: 0}
     - target: {fileID: 6751208043282338316, guid: c5a1022387dffe1448e32b5ac9914455, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.733
@@ -3623,6 +3633,10 @@ PrefabInstance:
     - target: {fileID: 8137486438933494659, guid: c5a1022387dffe1448e32b5ac9914455, type: 3}
       propertyPath: m_Name
       value: BotDunky
+      objectReference: {fileID: 0}
+    - target: {fileID: 8980683237247564359, guid: c5a1022387dffe1448e32b5ac9914455, type: 3}
+      propertyPath: m_Mass
+      value: 1000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
